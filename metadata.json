@@ -1,0 +1,7 @@
+{
+  "name": "Sahra Boom Truck Expense & Profit Tracker",
+  "description": "Production-ready Saudi boom truck fleet financial, expense, revenue, fuel, maintenance, driver overtime, and profit share tracking system in SAR with bilingual English/Arabic RTL support.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+
