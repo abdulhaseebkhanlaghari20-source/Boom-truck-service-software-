@@ -74,11 +74,50 @@ interface SimpleContextType {
   importBackupJSON: (jsonData: string) => boolean;
 }
 
+const VALID_SECTIONS: ActiveSection[] = [
+  'dashboard',
+  'trucks',
+  'drivers',
+  'invoices',
+  'expenses',
+  'reports',
+  'settings',
+];
+
+const getSectionFromHash = (): ActiveSection => {
+  if (typeof window !== 'undefined' && window.location.hash) {
+    const raw = window.location.hash.replace(/^#\/?/, '').toLowerCase();
+    if (VALID_SECTIONS.includes(raw as ActiveSection)) {
+      return raw as ActiveSection;
+    }
+  }
+  return 'dashboard';
+};
+
 const SimpleContext = createContext<SimpleContextType | undefined>(undefined);
 
 export const SimpleProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [activeSection, setActiveSection] = useState<ActiveSection>('dashboard');
+  const [activeSection, setActiveSectionState] = useState<ActiveSection>(() => getSectionFromHash());
   const [selectedTruckId, setSelectedTruckId] = useState<string | null>(null);
+
+  const setActiveSection = (sec: ActiveSection) => {
+    setActiveSectionState(sec);
+    if (typeof window !== 'undefined') {
+      const current = window.location.hash.replace(/^#\/?/, '').toLowerCase();
+      if (current !== sec) {
+        window.location.hash = `#/${sec}`;
+      }
+    }
+  };
+
+  useEffect(() => {
+    const onHashChange = () => {
+      const section = getSectionFromHash();
+      setActiveSectionState(section);
+    };
+    window.addEventListener('hashchange', onHashChange);
+    return () => window.removeEventListener('hashchange', onHashChange);
+  }, []);
 
   const [language, setLanguageState] = useState<'en' | 'ar'>(() => {
     return (localStorage.getItem('boom_lang') as 'en' | 'ar') || 'en';
