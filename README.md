@@ -13,12 +13,7 @@ A modern, responsive Saudi boom truck fleet financial, expense, revenue, fuel, m
 - **Reports & PDF Export**: Comprehensive business, truck, expense, and driver reports with clean print/PDF layouts.
 - **Settings**: Company details, default allowances, and English / Arabic RTL toggle.
 
-## GitHub Pages Deployment
-
-This project is configured out-of-the-box for GitHub Pages:
-1. Vite's `base` path is configured relatively (`./`) to support any repository name without hardcoding.
-2. A GitHub Actions workflow is included at `.github/workflows/deploy.yml`.
-3. Push to your `main` branch, enable GitHub Pages via GitHub Actions in repository Settings, and your app will be live!
+## Getting Started
 
 ### Local Development
 

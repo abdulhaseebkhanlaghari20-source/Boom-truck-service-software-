@@ -3,10 +3,9 @@ import react from '@vitejs/plugin-react';
 import { fileURLToPath } from 'url';
 import { defineConfig } from 'vite';
 
-export default defineConfig(({ command }) => {
-  return {
-    base: process.env.VITE_BASE_PATH || (command === 'build' ? '/Boom-truck-service-software-/' : '/'),
-    plugins: [react(), tailwindcss()],
+export default defineConfig({
+  base: '/',
+  plugins: [react(), tailwindcss()],
     resolve: {
       alias: {
         '@': fileURLToPath(new URL('.', import.meta.url)),
@@ -19,5 +18,4 @@ export default defineConfig(({ command }) => {
       // Disable file watching when DISABLE_HMR is true to save CPU during agent edits.
       watch: process.env.DISABLE_HMR === 'true' ? null : {},
     },
-  };
 });
